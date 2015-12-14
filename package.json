@@ -1,13 +1,30 @@
 {
-  "name": "chat-example",
+  "name": "voteapp-fcc",
   "version": "0.0.0",
-  "description": "A chat example to showcase how to use `socket.io` with a static `express` server with `async` for control flow.",
+  "description": "A voting app made for basejump at FreeCodeCamp",
   "main": "server.js",
-  "repository": "",
-  "author": "Mostafa Eweda <mo.eweda@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sambitdebnath/voteappfcc.git"
+  },
+  "author": "Sambit Debnath <sambitdebnath@gmail.com>",
   "dependencies": {
     "async": "~0.2.8",
-    "express": "~3.2.4",
+    "bcrypt-nodejs": "0.0.3",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "mongoose": "^4.3.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "socket.io": "~0.9.14"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {},
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sambitdebnath/voteappfcc/issues"
+  },
+  "homepage": "https://github.com/sambitdebnath/voteappfcc#readme"
 }
