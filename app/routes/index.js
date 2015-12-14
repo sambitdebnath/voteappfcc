@@ -1,0 +1,18 @@
+module.exports=function(app,passport){
+  app.route('/')
+    .get(function(req,res){
+        res.sendFile(process.cwd()+"/public/index.html");
+    });
+  app.route('/signup')
+    .post(passport.authenticate('local-signup',{
+        successRedirect:"/profile",
+        failureRedirect:"/signup"
+    }))
+    .get(function(req,res){
+        res.sendFile(process.cwd()+'/public/signup.html');
+    });
+  app.route('/profile')
+    .get(function(req,res){
+        res.sendFile(process.cwd()+'/public/profile.html');
+    });
+};
