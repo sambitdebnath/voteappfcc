@@ -1,11 +1,12 @@
 var mongoose=require('mongoose'),
     bcrypt=require('bcrypt-nodejs');
-var schema = mongoose.schema();
+var Schema = mongoose.Schema;
 
-var User=new schema({
+var User=new Schema({
     local:{
         email:String,
-        password:String
+        password:String,
+        displayname:String
     },
     polls:[{
        polltopic:String,

@@ -23,19 +23,36 @@ module.exports=function(passport){
             if (err)
                 return done(err);
             if(user){
-                return done(null,false,function(){
-                    //handle duplicate email stuff
-                });
+                return done(null,false,{message:"duplemail"});
             } else {
                 var newUser=new User();
                 newUser.local.email=email;
                 newUser.local.password=newUser.generateHash(password);
+                newUser.local.displayname=req.body.displayname;
                 newUser.save(function(err){
                     if(err) throw err;
                     return done(null,newUser);
                 });
             }
           });
+      });
+  }));
+  passport.use('local-login',new LocalStrategy({
+      usernameField:'email',
+      passwordField:'password',
+      passReqToCallback:false
+  },
+  function(email,password,done){
+      process.nextTick(function(){
+        User
+            .findOne({'local.email':email},function(err,user){
+                if(err) return done(err);
+                if(!user)
+                    return done(null,false,{message:"noemail"});
+                if(!user.isValidPasswd(password))
+                    return done(null,false,{message:"wrongpass"});
+                return done(null,user);
+            });
       });
   }));
 };
