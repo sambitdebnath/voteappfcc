@@ -1,5 +1,5 @@
 (function(){
-    //console.log('first line bhai');
+    console.log('first line bhai');
     var apiUrl="https://voteappfcc-sambitdebnath.c9users.io/api/:id";
     //console.log('panga');
     $(document).ready(function(){

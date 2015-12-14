@@ -23,7 +23,7 @@ module.exports=function(passport){
             if (err)
                 return done(err);
             if(user){
-                return done(null,false,{message:"duplemail"});
+                return done(null,false,req.flash('signupMsg','User with given email already exists!'));
             } else {
                 var newUser=new User();
                 newUser.local.email=email;
@@ -40,17 +40,17 @@ module.exports=function(passport){
   passport.use('local-login',new LocalStrategy({
       usernameField:'email',
       passwordField:'password',
-      passReqToCallback:false
+      passReqToCallback:true
   },
-  function(email,password,done){
+  function(req,email,password,done){
       process.nextTick(function(){
         User
             .findOne({'local.email':email},function(err,user){
                 if(err) return done(err);
                 if(!user)
-                    return done(null,false,{message:"noemail"});
+                    return done(null,false,req.flash('loginMsg','User with given email doesn\'t exist!'));
                 if(!user.isValidPasswd(password))
-                    return done(null,false,{message:"wrongpass"});
+                    return done(null,false,req.flash('loginMsg','Incorrect password!'));
                 return done(null,user);
             });
       });

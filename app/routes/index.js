@@ -9,7 +9,7 @@ module.exports=function(app,passport){
   
   app.route('/')
     .get(function(req,res){
-        res.sendFile(process.cwd()+"/public/index.html");
+        res.render('index.ejs',{message:req.flash('loginMsg')});
     })
     .post(passport.authenticate('local-login',{
       successRedirect:"/home",
@@ -21,11 +21,11 @@ module.exports=function(app,passport){
         failureRedirect:"/signup"
     }))
     .get(function(req,res){
-        res.sendFile(process.cwd()+'/public/signup.html');
+        res.render('signup.ejs',{message:req.flash('signupMsg')});
     });
   app.route('/home')
     .get(isLoggedIn,function(req,res){
-        res.sendFile(process.cwd()+'/public/home.html');
+        res.render('home.ejs');
     });
   app.route('/api/:id')
     .get(isLoggedIn,function(req,res){
