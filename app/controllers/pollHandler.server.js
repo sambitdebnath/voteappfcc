@@ -28,7 +28,7 @@ function pollHandler(){
   };
   this.getPoll =function(req,res){
       var pollid=req.params.id;
-      console.log("Poll id:"+pollid);
+      //console.log("Poll id:"+pollid);
       Poll
         .findOne({'_id':pollid},{'_id':false})
         .exec(function(err,result){

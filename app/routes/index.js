@@ -30,10 +30,12 @@ module.exports=function(app,passport){
         res.render('home.ejs');
     })
     .post(isLoggedIn,pollHandler.addPoll);
+  
   app.route('/api/:id')
     .get(isLoggedIn,function(req,res){
       res.json(req.user.local);
     });
+  
   app.route('/login')
     .post(passport.authenticate('local-login',{
       successRedirect:"/home",
