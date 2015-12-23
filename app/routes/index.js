@@ -6,6 +6,8 @@ module.exports=function(app,passport){
             res.redirect('/');
         }
     }
+  var ph=require(process.cwd()+'/app/controllers/pollHandler.server.js');  
+  var pollHandler=new ph();
   
   app.route('/')
     .get(function(req,res){
@@ -26,7 +28,8 @@ module.exports=function(app,passport){
   app.route('/home')
     .get(isLoggedIn,function(req,res){
         res.render('home.ejs');
-    });
+    })
+    .post(isLoggedIn,pollHandler.addPoll);
   app.route('/api/:id')
     .get(isLoggedIn,function(req,res){
       res.json(req.user.local);
@@ -41,5 +44,8 @@ module.exports=function(app,passport){
     .get(function(req,res){
       req.logout();
       res.redirect('/');
-    })
+    });
+  app.route('/api/polls/:id')
+    .get(isLoggedIn,pollHandler.getPoll);
+    
 };

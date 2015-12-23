@@ -1,20 +1,14 @@
 var mongoose=require('mongoose'),
     bcrypt=require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
-
+var Poll=require('./poll').schema;
 var User=new Schema({
     local:{
         email:String,
         password:String,
         displayname:String
     },
-    polls:[{
-       polltopic:String,
-       pollchoices:[{
-           choice:String,
-           votes:Number
-       }]
-    }]
+    polls:[{type:Schema.Types.ObjectId,ref:'Poll'}]
 });
 
 User.methods.generateHash=function(password){
@@ -23,4 +17,7 @@ User.methods.generateHash=function(password){
 User.methods.isValidPasswd=function(password){
     return bcrypt.compareSync(password,this.local.password);
 };
-module.exports=mongoose.model('User',User);
+
+var User=mongoose.model('User',User);
+//Poll.add({votes:{type:Schema.Types.ObjectId,ref:'User'}});
+module.exports=User;

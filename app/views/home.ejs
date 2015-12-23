@@ -2,12 +2,39 @@
 <html>
     <head>
         <title>Gimme some votes</title>
+        
     </head>
     <header>
         <p>Welcome, <span id="display-name"></span></p>
     </header>
     
     <body>
+        <div>
+            <h2>Create a poll</h2>
+            <form onclick="return false;">
+                <div>
+                    <label>Topic </label>
+                    <input type="text" name="polltopic">
+                </div>
+                <div>
+                    <label>Choice </label>
+                    <input type="text" name="choice1">
+                </div>
+                <div>
+                    <label>Choice</label>
+                    <input type="text" name="choice2">
+                </div>
+                <div id="more-choices"></div>
+                <a href=# id="choice-add">Add choice</a><br>
+                <button id="add-poll" >Create</button>
+            </form>
+        </div>
+        <div>
+            <h2 id="l-poll-top"></h2>
+            <ul id="l-poll-choices">
+                
+            </ul>
+        </div>
         <a href='/logout'>Log out</a>
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <script type="text/javascript" src="controllers/homeController.client.js"></script>

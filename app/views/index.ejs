@@ -2,12 +2,15 @@
 <html>
     <head>
         <title>Gimme some votes</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="public/css/main.css">
     </head>
     <body>
-        <h1>Vote Machine v1.3</h1>
+        <div class="container-fluid">
+            <h1 class="bighead">Vote Machine v1.3</h1>
         <form action="/" method="post">
             <% if (message.length > 0) { %>
-                <div><%= message %></div>
+                <div class="warning"><%= message %></div>
             <% } %>
             <div>
                 <label>Email</label>
@@ -19,6 +22,7 @@
             </div>
             <button type="submit">Log in</button>
         </form>
-        <p><a href="/signup">Sign up</a> and start feeding you opinions to people</p>
+        <p>Don't have an account? <a href="/signup">Sign up</a> and start feeding you opinions to people</p>
+    </div>
     </body>
 </html>
