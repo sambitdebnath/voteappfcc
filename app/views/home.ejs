@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html ng-app="home" ng-controller="homeCtrl">
+<html ng-app="home">
     <head>
         <title>Gimme some votes</title>
         
     </head>
-    <header>
+    <header  ng-controller="homeCtrl">
         <p>Welcome, {{username}}</span></p>
     </header>
     
@@ -24,13 +24,16 @@
                 <button ng-click="addChoice();">Add choice</button>
                 <button ng-click="postPoll();" >Create</button>
             </form>
-            <div ng-show="showPoll">
-                <h2>Poll: {{ptShow}}</h2>
+            <form ng-show="showPoll" onclick="return false;">
+                <h2>Poll: {{ptShow}} Voted:{{voted}}</h2>
                 <ul ng-repeat="choice in chShow">
-                    <li>{{choice.choice}} ({{choice.votes}} votes)</li>
+                    <li>{{choice.choice}} ({{choice.votes}} votes) <input type="radio" name="vote" ng-model="vote.vote" ng-value="$index" ng-hide="$parent.voted"></li>
+                    
                 </ul>
+                <button ng-click="postVote(_pid);" ng-hide="voted">Vote!</button>
+                {{vote.vote}}
             </div>
-        </div>
+        </form>
         <a href='/logout'>Log out</a>
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular.min.js"></script>

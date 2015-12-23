@@ -48,6 +48,7 @@ module.exports=function(app,passport){
       res.redirect('/');
     });
   app.route('/api/polls/:id')
-    .get(isLoggedIn,pollHandler.getPoll);
+    .get(isLoggedIn,pollHandler.getPoll)
+    .post(isLoggedIn,pollHandler.postVote);
     
 };

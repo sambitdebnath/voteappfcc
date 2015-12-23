@@ -10,6 +10,8 @@
     appHome.controller('pollPostCtrl',function($scope,$http){
         $scope.showPoll=false;
         $scope.choices=[{id:'choice1'},{id:'choice2'}];
+        $scope.vote={};
+        $scope.vote.vote="blye";
         $scope.addChoice=function(){
             var nch=$scope.choices.length+1
             $scope.choices.push({id:'choice'+(nch)})
@@ -24,12 +26,21 @@
             data.polltopic=$scope.polltopic;
             $http.post(apiUrl+"/home",data).then(function(resp){
                 $http.get(apiUrl+"/api/polls/"+resp.data.pid).then(function(res){
-                    console.log(res.data.polltopic);
+                    $scope._pid=resp.data.pid;
                     $scope.showPoll=true;
-                    $scope.ptShow=res.data.polltopic;
-                    $scope.chShow=res.data.pollchoices;
+                    $scope.ptShow=res.data[0].polltopic;
+                    $scope.chShow=res.data[0].pollchoices;
+                    $scope.voted=res.data[1].voted;
                 });
             });
-        }
+        };
+        $scope.postVote=function(pollid){
+            var data={};
+            console.log($scope.vote.vote);
+            data.vchoice=$scope.vote.vote;
+            $http.post(apiUrl+"/api/polls/"+pollid,data).then(function(response){
+               console.log(JSON.stringify(response.data)); 
+            });
+        };
     });
 })();

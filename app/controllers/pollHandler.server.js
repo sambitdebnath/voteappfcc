@@ -28,13 +28,31 @@ function pollHandler(){
   };
   this.getPoll =function(req,res){
       var pollid=req.params.id;
-      //console.log("Poll id:"+pollid);
       Poll
         .findOne({'_id':pollid},{'_id':false})
         .exec(function(err,result){
             if (err) throw err;
-            res.json(result);
+            var voted=false;
+            if(result.voters.indexOf(req.user.local.id)!=-1)
+              voted=true;
+            res.json([result,{'voted':voted}]);
         });   
+  };
+  this.postVote=function(req,res){
+    //onsole.log("body post vote"+JSON.stringify(req.body));
+    var att="pollchoices[" + req.body.vchoice + "].votes";
+    Poll
+      .findOne({'_id':req.params.id})
+      .exec(function(err,result){
+        if(err) throw err;
+        var arr=result.pollchoices;
+        arr[req.body.vchoice].votes++;
+        result.save(function(err){
+          if(err) throw err;
+          //console.log("what");
+          res.json(result);
+        });
+      });
   };
 }
 module.exports=pollHandler;
