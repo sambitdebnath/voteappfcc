@@ -40,13 +40,17 @@ function pollHandler(){
   };
   this.postVote=function(req,res){
     //onsole.log("body post vote"+JSON.stringify(req.body));
-    var att="pollchoices[" + req.body.vchoice + "].votes";
     Poll
       .findOne({'_id':req.params.id})
       .exec(function(err,result){
         if(err) throw err;
         var arr=result.pollchoices;
         arr[req.body.vchoice].votes++;
+        User.findOne({'local.id':req.user.local.id})
+          .exec(function(error,res){
+            if(error) throw error;
+            result.voters.push(res);
+          });
         result.save(function(err){
           if(err) throw err;
           //console.log("what");

@@ -2,14 +2,16 @@
 <html ng-app="home">
     <head>
         <title>Gimme some votes</title>
-        
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular.min.js"></script>
+        <script type="text/javascript" src="controllers/homeController.angular.client.js"></script>
     </head>
-    <header  ng-controller="homeCtrl">
+    <header  ng-controller="homeCtrl" ng-cloak>
         <p>Welcome, {{username}}</span></p>
     </header>
     
     <body>
-        <div ng-controller="pollPostCtrl">
+        <div ng-controller="pollPostCtrl" ng-cloak>
             <h2>Create a poll</h2>
             <form onclick="return false;">
                 <div>
@@ -24,19 +26,19 @@
                 <button ng-click="addChoice();">Add choice</button>
                 <button ng-click="postPoll();" >Create</button>
             </form>
-            <form ng-show="showPoll" onclick="return false;">
-                <h2>Poll: {{ptShow}} Voted:{{voted}}</h2>
-                <ul ng-repeat="choice in chShow">
-                    <li>{{choice.choice}} ({{choice.votes}} votes) <input type="radio" name="vote" ng-model="vote.vote" ng-value="$index" ng-hide="$parent.voted"></li>
-                    
+            <form ng-show="showPoll">
+                <h2>Poll: {{ptShow}}</h2>
+                <ul>
+                    <li ng-repeat="choice in chShow">
+                        <label>
+                            {{choice.choice}} ({{choice.votes}} votes) 
+                            <input type="radio" name="showvote"   ng-model="vote.vote" value="{{$index}}" ng-hide="$parent.voted">
+                        </label>
+                    </li>
                 </ul>
                 <button ng-click="postVote(_pid);" ng-hide="voted">Vote!</button>
-                {{vote.vote}}
-            </div>
-        </form>
+            </form>
+        </div>
         <a href='/logout'>Log out</a>
-        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular.min.js"></script>
-        <script type="text/javascript" src="controllers/homeController.angular.client.js"></script>
     </body>
 </html>

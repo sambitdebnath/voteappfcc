@@ -31,6 +31,8 @@
                     $scope.ptShow=res.data[0].polltopic;
                     $scope.chShow=res.data[0].pollchoices;
                     $scope.voted=res.data[1].voted;
+                    $scope.choices=[{id:'choice1'},{id:'choice2'}];
+                    $scope.polltopic="";
                 });
             });
         };
@@ -39,7 +41,9 @@
             console.log($scope.vote.vote);
             data.vchoice=$scope.vote.vote;
             $http.post(apiUrl+"/api/polls/"+pollid,data).then(function(response){
-               console.log(JSON.stringify(response.data)); 
+               console.log(JSON.stringify(response.data));
+               $scope.chShow=response.data.pollchoices;
+               $scope.voted=true;
             });
         };
     });
